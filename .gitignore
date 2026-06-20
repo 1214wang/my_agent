@@ -11,3 +11,7 @@ __pycache__/
 # 系统垃圾文件
 .DS_Store
 Thumbs.db
+
+#生成的表格文件
+*.xlsx
+*.xls
