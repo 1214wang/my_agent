@@ -15,3 +15,5 @@ Thumbs.db
 #生成的表格文件
 *.xlsx
 *.xls
+#复盘的记录
+*.md
