@@ -36,7 +36,7 @@ def analyze_review(text):
         return {"sentiment": "未知", "keywords": []}
 
 
-def generate_response(messages, temperature=0.7):
+def generate_response(messages, temperature=0.7, stream=False):
     """
     通用调用函数：接收 messages 列表（可包含 system/user/assistant），
     返回模型回复的字符串，失败时抛出异常。
@@ -45,12 +45,17 @@ def generate_response(messages, temperature=0.7):
         model='qwen-plus',
         messages=messages,
         temperature=temperature,          
-        result_format='message'
+        result_format='message',
+        stream=stream,
     )
-    if response.status_code == 200:
-        return response.output.choices[0].message.content
+    if stream:
+        # 流式模式：直接返回生成器，让调用者迭代
+        return response 
     else:
-        raise Exception(f"API调用失败: {response.message}")
+        if response.status_code == 200:
+            return response.output.choices[0].message.content
+        else:
+            raise Exception(f"API调用失败: {response.message}")
 
 
 def test_temperature(prompt, temp_value=0.7):
