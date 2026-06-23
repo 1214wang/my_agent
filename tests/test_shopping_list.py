@@ -1,5 +1,5 @@
 import unittest
-from shopping_list import ShoppingList
+from scripts.shopping_list import ShoppingList
 class TestShoppingList(unittest.TestCase):
     def setUp(self):
         self.shoppinglist=ShoppingList({"鞋子":30,"书":12,"衣服":43})

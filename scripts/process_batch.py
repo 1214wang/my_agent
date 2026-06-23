@@ -8,7 +8,7 @@ import argparse
 # 批量处理函数
 # ============================================================
 #input_path：输入路径, output_path：输出路径
-def process_batch(input_path, output_path, max_rows=None):
+def process_batch(input_path, output_path, max_rows=None, temperature=0.3, top_p=0.7, frequency_penalty=1.1):
     """
     读取 CSV，对 content 列逐条调用 analyze_review，生成新列，保存结果
     """
@@ -60,13 +60,16 @@ if __name__ == "__main__":
     # 1. 创建解析器
     parser = argparse.ArgumentParser(description="AI 批量评论分析工具")
     
-    # 2. 定义三个参数
+    # 2. 定义五个参数
     parser.add_argument('-i', '--input', default='data/reviews.csv', help='输入 CSV 文件路径')
     parser.add_argument('-o', '--output', default='data/reviews_result.xlsx', help='输出 Excel 文件路径')
     parser.add_argument('-l', '--limit', type=int, default=None, help='限制处理行数（测试用）')
+    parser.add_argument('--temperature', type=float, default=0.3, help='温度参数')
+    parser.add_argument('--top_p', type=float, default=0.7, help='核采样参数')
+    parser.add_argument('--frequency_penalty', type=float, default=1.1, help='重复惩罚参数')
     
     # 3. 解析终端输入
     args = parser.parse_args()
     
     # 4. 调用核心函数
-    process_batch(args.input, args.output, args.limit)
+    process_batch(args.input, args.output, args.limit,temperature=args.temperature,top_p=args.top_p,frequency_penalty=args.frequency_penalty) 

@@ -10,7 +10,7 @@ api_key = os.getenv("DASHSCOPE_API_KEY")
 dashscope.api_key = api_key
 
 
-def analyze_review(text):
+def analyze_review(text, top_p=0.7,frequency_penalty=1.1,temperature=0.7, stream=False):
     """
     输入：一条评论文本 (str)
     输出：dict，包含 sentiment 和 keywords
@@ -23,7 +23,11 @@ def analyze_review(text):
         response = Generation.call(
             model='qwen-plus',
             messages=messages,
-            result_format='message'
+            frequency_penalty=frequency_penalty,
+            temperature=temperature, 
+            top_p=top_p,
+            stream=stream,
+            result_format='message',
         )
         content = response.output.choices[0].message.content
         result_dict = json.loads(content)
@@ -36,14 +40,19 @@ def analyze_review(text):
         return {"sentiment": "未知", "keywords": []}
 
 
-def generate_response(messages, temperature=0.7, stream=False):
+def generate_response(messages, top_p=0.7,frequency_penalty=1.1,temperature=0.7, stream=False):
     """
     通用调用函数：接收 messages 列表（可包含 system/user/assistant），
+    - temperature: 控制随机性
+    - top_p: 核采样阈值（0~1）
+    - frequency_penalty: 重复词惩罚（-2.0~2.0）
     返回模型回复的字符串，失败时抛出异常。
     """
     response = Generation.call(          
         model='qwen-plus',
         messages=messages,
+        top_p=top_p,
+        frequency_penalty=frequency_penalty,
         temperature=temperature,          
         result_format='message',
         stream=stream,
