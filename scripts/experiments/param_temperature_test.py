@@ -1,5 +1,5 @@
 #===============温度参数测试=================
-from core.llm_client import test_temperature
+from app.llm.client import test_temperature
 
 if __name__ == "__main__":
     # 定义一个需要创意的提问

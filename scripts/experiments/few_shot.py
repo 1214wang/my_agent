@@ -1,5 +1,5 @@
-from core.llm_client import generate_response
-from core.prompts import CLASSIFY_PROMPT
+from app.llm.client import generate_response
+from app.llm.prompts import CLASSIFY_PROMPT
 
 def classify_review(text):
     #创建Few-shot 示例

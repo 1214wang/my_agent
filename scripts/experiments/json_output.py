@@ -1,8 +1,8 @@
 #==============结构化输出====================
 #让模型必须返回 JSON，并成功用 json.loads() 解析出字段。
 import json
-from core.llm_client import generate_response
-from core.prompts import EXTRACTION_PROMPT
+from app.llm.client import generate_response
+from app.llm.prompts import EXTRACTION_PROMPT
 #输出结构化内容
 def get_structured_response(user_input):
     messages = [

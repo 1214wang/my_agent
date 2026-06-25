@@ -1,4 +1,4 @@
-from core.llm_client import analyze_review
+from app.llm.client import analyze_review
 
 # ============================================================
 # 测试区

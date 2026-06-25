@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from tqdm import tqdm
-from core.llm_client import analyze_review
+from app.llm.client import analyze_review
 import argparse
 
 # ============================================================
